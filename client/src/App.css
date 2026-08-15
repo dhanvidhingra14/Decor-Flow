@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "DM Sans", sans-serif;
+    background:
+        linear-gradient(
+            135deg,
+            #fff7fb 0%,
+            #f7f3ff 45%,
+            #f3f8ff 100%
+        );
+    color: #211b36;
+}
+
+/* =========================================
+   MAIN APP
+========================================= */
+
+#root {
+    min-height: 100vh;
+}
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 64px;
+    font-weight: 700;
+    margin: 20px 0 35px;
+    color: #241936;
+    letter-spacing: -2px;
+}
+
+h2 {
+    font-family: "Playfair Display", serif;
+    color: #302044;
+}
+
+h3 {
+    color: #2b2040;
+}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+button {
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 12px 22px;
+
+    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #ec4899
+    );
+
+    box-shadow:
+        0 5px 15px rgba(124, 58, 237, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(124, 58, 237, 0.30);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+input,
+select,
+textarea {
+    font-family: "DM Sans", sans-serif;
+    color: #211b36;
+    background: #ffffff;
+    border: 1px solid #ddd4eb;
+    border-radius: 10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #8b5cf6;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.12);
+}
+
+/* =========================================
+   LINKS
+========================================= */
+
+a {
+    color: #7c3aed;
+}
+
+/* =========================================
+   HORIZONTAL LINE
+========================================= */
+
+hr {
+    border: none;
+    border-top: 1px solid #ddd5e8;
+    margin: 40px 0;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #e4dcef;
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(66, 42, 100, 0.08);
+}
+
+/* =========================================
+   DASHBOARD CARDS
+========================================= */
+
+.dashboard-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+
+    border: 1px solid #e5def0;
+
+    box-shadow:
+        0 8px 25px rgba(66, 42, 100, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(66, 42, 100, 0.15);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 48px;
+    }
+
+    body {
+        font-size: 15px;
+    }
+
+    button {
+        padding: 10px 16px;
+    }
+}

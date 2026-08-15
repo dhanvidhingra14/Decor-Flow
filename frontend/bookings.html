@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DecorFlow — Bookings</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230D9488%22/><text x=%2250%25%22 y=%2262%25%22 font-size=%2255%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22sans-serif%22>D</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>DecorFlow</h1>
+      <p>Interior Management</p>
+    </div>
+    <nav>
+      <a class="nav-link" href="index.html">📊 Dashboard</a>
+      <a class="nav-link active" href="bookings.html">🎨 Bookings</a>
+      <a class="nav-link" href="#">📦 Inventory</a>
+      <a class="nav-link" href="#">🗓️ Schedule</a>
+      <a class="nav-link" href="#">👥 Clients</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="btn-new-project" href="new-booking.html">+ New Booking</a>
+      <div class="dev-credit">
+        <div><strong>Developed by Dhanvi Dhingra</strong></div>
+        <div>Built during internship at Talking Crooks IT Pvt. Ltd.</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <span class="crumb">Projects &nbsp;›&nbsp; <strong>Bookings List</strong></span>
+    </div>
+
+    <div class="content">
+      <h2 class="page-title">All bookings</h2>
+      <p class="page-subtitle">Manage and track all event logistics and financial status.</p>
+
+      <div class="stats-grid" style="margin-bottom:24px;">
+        <div class="stat-card">
+          <div class="label">Total receivables</div>
+          <div class="value" style="color:var(--red);" id="total-receivables">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total bookings</div>
+          <div class="value" id="total-count">—</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Client / Event Name</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Balance Due</th>
+              <th>Assigned To</th>
+            </tr>
+          </thead>
+          <tbody id="bookings-body">
+            <tr><td colspan="5" class="loading">Loading bookings…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+async function loadBookings() {
+  const data = await api('/api/bookings');
+  document.getElementById('total-receivables').textContent = '₹' + data.totalReceivables.toLocaleString('en-IN');
+  document.getElementById('total-count').textContent = data.count;
+
+  document.getElementById('bookings-body').innerHTML = data.bookings.map(b => `
+    <tr>
+      <td class="client-cell">
+        <div class="name">${b.event_name}</div>
+        <div class="sub">${b.theme_notes ? b.theme_notes.slice(0, 40) : b.client_name}</div>
+      </td>
+      <td>${new Date(b.event_date).toLocaleDateString('en-IN', {month:'short', day:'numeric'})}</td>
+      <td><span class="chip ${b.status}">${b.status.replace('_',' ')}</span></td>
+      <td class="balance-cell">₹${Math.max(b.balance_due,0).toLocaleString('en-IN')}</td>
+      <td>${b.team_name || '—'}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" class="loading">No bookings yet — create one!</td></tr>';
+}
+loadBookings();
+</script>
+</body>
+</html>
