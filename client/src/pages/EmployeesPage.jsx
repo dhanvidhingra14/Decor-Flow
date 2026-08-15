@@ -1,5 +1,6 @@
-﻿import { useEffect, useState } from "react";
-const endpoint = "http://localhost:5000/api/employees";
+import { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const endpoint = `${API_URL}/employees`;
 export default function EmployeesPage() {
   const [employees, setEmployees] = useState([]); const [form, setForm] = useState({ name: "", phone: "", role: "" }); const [message, setMessage] = useState("");
   const load = async () => { try { const r = await fetch(endpoint); setEmployees(await r.json()); } catch { setMessage("Could not load employees."); } };

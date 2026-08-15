@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 function BookingList({ refresh }) {
 
     const [bookings, setBookings] = useState([]);
@@ -22,7 +23,7 @@ function BookingList({ refresh }) {
             setError("");
 
             const response = await fetch(
-                "http://localhost:5000/api/bookings"
+                `${API_URL}/bookings`
             );
 
             const data = await response.json();
@@ -199,7 +200,7 @@ function BookingList({ refresh }) {
         try {
 
             const response = await fetch(
-                `http://localhost:5000/api/bookings/${editingBooking._id}`,
+                `${API_URL}/bookings/${editingBooking._id}`,
                 {
                     method: "PUT",
 
@@ -300,7 +301,7 @@ function BookingList({ refresh }) {
         try {
 
             const response = await fetch(
-                `http://localhost:5000/api/bookings/${id}`,
+                `${API_URL}/bookings/${id}`,
                 {
                     method: "DELETE"
                 }

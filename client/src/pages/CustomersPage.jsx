@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 function CustomersPage() {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ function CustomersPage() {
             setLoading(true);
 
             const response = await fetch(
-                "http://localhost:5000/api/customers"
+                `${API_URL}/customers`
             );
 
             const data = await response.json();
@@ -107,7 +108,7 @@ function CustomersPage() {
 
         try {
             const response = await fetch(
-                "http://localhost:5000/api/customers",
+                `${API_URL}/customers`,
                 {
                     method: "POST",
 
@@ -205,7 +206,7 @@ function CustomersPage() {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/api/customers/${editingCustomer._id}`,
+                `${API_URL}/customers/${editingCustomer._id}`,
                 {
                     method: "PUT",
 
@@ -274,7 +275,7 @@ function CustomersPage() {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/api/customers/${customerId}`,
+                `${API_URL}/customers/${customerId}`,
                 {
                     method: "DELETE"
                 }

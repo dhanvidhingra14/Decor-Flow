@@ -1,5 +1,6 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 function PaymentList({ refresh }) {
 
     const [payments, setPayments] = useState([]);
@@ -20,7 +21,7 @@ function PaymentList({ refresh }) {
             setLoading(true);
 
             const response = await fetch(
-                "http://localhost:5000/api/payments"
+                `${API_URL}/payments`
             );
 
             const data = await response.json();
@@ -162,7 +163,7 @@ function PaymentList({ refresh }) {
         try {
 
             const response = await fetch(
-                `http://localhost:5000/api/payments/${editingPayment._id}`,
+                `${API_URL}/payments/${editingPayment._id}`,
                 {
                     method: "PUT",
 
@@ -254,7 +255,7 @@ function PaymentList({ refresh }) {
         try {
 
             const response = await fetch(
-                `http://localhost:5000/api/payments/${id}`,
+                `${API_URL}/payments/${id}`,
                 {
                     method: "DELETE"
                 }

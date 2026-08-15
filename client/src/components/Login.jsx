@@ -1,4 +1,6 @@
-﻿import { useState } from "react";
+import { useState } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const adminDemo = { email: "admin@decorflow.com", password: "admin123" };
 
@@ -24,7 +26,7 @@ function Login({ onLogin }) {
         event.preventDefault();
         setLoading(true); setError("");
         try {
-            const response = await fetch("http://localhost:5000/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...admin, role: "admin" }) });
+            const response = await fetch(`${API_URL}/auth/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...admin, role: "admin" }) });
             const data = await response.json().catch(() => ({}));
             if (!response.ok) throw new Error(data.message || "Unable to sign in.");
             completeLogin(data);
@@ -38,7 +40,7 @@ function Login({ onLogin }) {
         try {
             const endpoint = clientMode === "register" ? "/api/auth/client/register" : "/api/auth/client/login";
             const body = clientMode === "register" ? client : { phone: client.phone };
-            const response = await fetch(`http://localhost:5000${endpoint}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+            const response = await fetch(`${API_URL}${endpoint.replace(/^\/api/, "")}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
             const data = await response.json().catch(() => ({}));
             if (!response.ok) throw new Error(data.message || "Unable to continue.");
             completeLogin(data);

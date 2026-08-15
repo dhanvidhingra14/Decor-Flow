@@ -1,10 +1,10 @@
-﻿import { useEffect, useState } from "react";
-const api = "http://localhost:5000/api";
+import { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function Dashboard({ refresh, onNavigate }) {
   const [data, setData] = useState({ customers: [], bookings: [], payments: [] });
   const [loading, setLoading] = useState(true);
-  useEffect(() => { (async () => { try { setLoading(true); const [customers, bookings, payments] = await Promise.all([fetch(`${api}/customers`).then(r => r.json()), fetch(`${api}/bookings`).then(r => r.json()), fetch(`${api}/payments`).then(r => r.json())]); setData({ customers: Array.isArray(customers) ? customers : [], bookings: Array.isArray(bookings) ? bookings : [], payments: Array.isArray(payments) ? payments : [] }); } catch (error) { console.error("Dashboard load failed", error); } finally { setLoading(false); } })(); }, [refresh]);
+  useEffect(() => { (async () => { try { setLoading(true); const [customers, bookings, payments] = await Promise.all([fetch(`${API_URL}/customers`).then(r => r.json()), fetch(`${API_URL}/bookings`).then(r => r.json()), fetch(`${API_URL}/payments`).then(r => r.json())]); setData({ customers: Array.isArray(customers) ? customers : [], bookings: Array.isArray(bookings) ? bookings : [], payments: Array.isArray(payments) ? payments : [] }); } catch (error) { console.error("Dashboard load failed", error); } finally { setLoading(false); } })(); }, [refresh]);
   const pending = data.bookings.filter(b => (b.status || "Pending") === "Pending").length;
   const confirmed = data.bookings.filter(b => b.status === "Confirmed").length;
   const collected = data.payments.reduce((total, payment) => total + Number(payment.amount || 0), 0);
