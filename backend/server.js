@@ -150,6 +150,3 @@ app.get('/health', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`DecorFlow server running on port ${PORT}`);
 });
-app.listen(PORT, () => {
-  console.log(`DecorFlow server running at http://localhost:${PORT}`);
-});
