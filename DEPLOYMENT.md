@@ -21,6 +21,10 @@ Set `JWT_SECRET` to a long, private random value. After deployment,
 `https://decor-flow-backend.onrender.com/health` must return
 `{"status":"ok"}` and a POST to `/api/auth/login` must no longer return 404.
 
+On startup, the API creates an administrator if it does not exist and both
+`ADMIN_EMAIL` and `ADMIN_PASSWORD` are set in Render. These credentials remain
+under your control and are not stored in the repository.
+
 The included `render.yaml` records the same configuration for a Blueprint
 deployment. When changing an existing service, update its Root Directory in
 Render and manually redeploy it; committing this file alone does not change an

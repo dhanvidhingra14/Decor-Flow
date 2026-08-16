@@ -1,6 +1,8 @@
 ﻿const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
+const User = require("./models/User");
 
 require("dotenv").config();
 
@@ -32,12 +34,38 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/employees", employeeRoutes);
 
+async function ensureAdminUser() {
+    const email = process.env.ADMIN_EMAIL?.toLowerCase().trim();
+    const password = process.env.ADMIN_PASSWORD;
+
+    if (!email || !password) {
+        console.warn("Demo admin was not created: set ADMIN_EMAIL and ADMIN_PASSWORD in the environment.");
+        return;
+    }
+
+    try {
+        const existingAdmin = await User.findOne({ email });
+        if (existingAdmin) return;
+
+        await User.create({
+            name: "DecorFlow Admin",
+            email,
+            password: await bcrypt.hash(password, 10),
+            role: "admin"
+        });
+        console.log(`Demo admin created for ${email}`);
+    } catch (error) {
+        console.error("DEMO ADMIN SETUP ERROR:", error);
+    }
+}
+
 // DATABASE
 mongoose
     .connect(process.env.MONGO_URI)
-    .then(() => {
+    .then(async () => {
 
         console.log("MongoDB connected");
+        await ensureAdminUser();
 
         const PORT =
             process.env.PORT || 5000;
