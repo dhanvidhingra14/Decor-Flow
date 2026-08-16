@@ -142,7 +142,14 @@ app.post('/api/bookings', (req, res) => {
   const bookingId = tx();
   res.status(201).json({ booking_id: bookingId, message: 'Booking created' });
 });
+// Health check for Render
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`DecorFlow server running on port ${PORT}`);
+});
 app.listen(PORT, () => {
   console.log(`DecorFlow server running at http://localhost:${PORT}`);
 });
