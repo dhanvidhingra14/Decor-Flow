@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Used by Render to verify that the service is running after deployment.
+app.get("/health", (_req, res) => {
+    res.status(200).json({ status: "ok" });
+});
 
 // ROUTES
 
