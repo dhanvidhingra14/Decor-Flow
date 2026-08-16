@@ -24,6 +24,7 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const authRoutes = require("./routes/authRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
+const legacyMigrationRoutes = require("./routes/legacyMigrationRoutes");
 
 // ROUTES
 app.use("/api/customers", customerRoutes);
@@ -33,6 +34,7 @@ app.use("/api/payments", paymentRoutes);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/employees", employeeRoutes);
+app.use("/api/migration", legacyMigrationRoutes);
 
 async function ensureAdminUser() {
     const email = process.env.ADMIN_EMAIL?.toLowerCase().trim();
